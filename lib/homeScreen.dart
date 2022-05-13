@@ -40,7 +40,19 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   paynow() async {
-   var response =  await StripeServices.payNowHandler(amount: '2000', currency: 'USD');
-     print('response message ${response.message}');
+    var response =
+        await StripeServices.payNowHandler(amount: '15', currency: 'USD');
+    ScaffoldMessengerState()
+        .hideCurrentSnackBar(reason: SnackBarClosedReason.action);
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        backgroundColor: Colors.teal,
+        elevation: 2,
+        content: Text('response message : ${response.message}'),
+        duration: const Duration(seconds: 2),
+      ),
+    );
+
+    print('response message ${response.message}');
   }
 }

@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:math';
+import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
 import 'package:stripe_payment/stripe_payment.dart';
@@ -38,7 +39,7 @@ class StripeServices {
       String amount, String currency) async {
     try {
       Map<String, dynamic> body = {
-        'amount': amount,
+        'amount': calculateAmount(amount),
         'currency': currency,
       };
 
@@ -80,5 +81,9 @@ class StripeServices {
       message = 'Transaction canceled';
     }
     return StripeTransactionResponse(message: message, success: false);
+  }
+ static calculateAmount(String amount) {
+    final a = (int.parse(amount)) * 100;
+    return a.toString();
   }
 }
